@@ -2,10 +2,12 @@
 
 import { parse } from "@vue/compiler-dom";
 import { NetCDFReader }  from "netcdfjs";
-import { watchEffect, ref } from "vue";
+import { watchEffect, ref, onMounted, onUnmounted } from "vue";
   const props = defineProps({
     fileToDisplay: File
   })
+
+  const emit = defineEmits(['file-deleted'])
 
   const filecontent = ref("");
 
@@ -55,7 +57,6 @@ import { watchEffect, ref } from "vue";
         //filecontent.value = parser.value.parseFromString(tempFileContent, "text/html").textContent;
         filecontent.value = tempFileContent;
         filetype.value = type;
-        console.log(tempFileContent);
         break;
       case 'text/plain':
         filecontent.value = e.target.result;
@@ -80,12 +81,36 @@ import { watchEffect, ref } from "vue";
   }
   reader.readAsText(props.fileToDisplay);
 
+  function deleteItem(e){
+    emit('file-deleted', props.fileToDisplay);
+  }
+
+  // prevent default prowser behaviour
+function preventDefaults(e) {
+    e.preventDefault()
+}
+
+onMounted(() => {
+    events.forEach((eventName) => {
+        document.body.addEventListener(eventName, preventDefaults)
+    })
+})
+
+onUnmounted(() => {
+    events.forEach((eventName) => {
+        document.body.removeEventListener(eventName, preventDefaults)
+    })
+})
+
+const events = ['click']
+
 </script>
 
 <template>
   
   <div class="fileview">
-    <h2>{{fileToDisplay.name}}</h2>                                                    
+    <h2>{{fileToDisplay.name}} <button class="x-button" @click="deleteItem">X</button> </h2>  
+                                                     
     <div  id="file_content_zone" class="container">
    
     <div class="text-in-container">
@@ -130,5 +155,13 @@ import { watchEffect, ref } from "vue";
 
     .code{
       color: rgb(245, 86, 86);
+    }
+
+    .x-button {
+      background-color: rgba(255, 3, 3, 0.459);
+      color: var(--color-text);
+      border-radius: 6px;
+      text-align: center;
+      font-weight: bold;
     }
 </style>

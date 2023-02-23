@@ -12,7 +12,7 @@ function dragEnterHandler(e){
  }
 
 // Define vue emit event
-const emit = defineEmits(['files-dropped'])
+const emit = defineEmits(['files-dropped']);
 
 // handle dropping a single file abd emit to parent
 function dropHandler(e) {
@@ -22,6 +22,7 @@ function dropHandler(e) {
   //}else{
   //  throw console.error("Not an allowed filetype");
   //}
+  dragging.value = false;
     
 }
 
