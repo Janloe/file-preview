@@ -1,8 +1,9 @@
 <script setup>
 
 import { ref, onMounted, onUnmounted } from "vue";
-  const props = defineProps({
-    fileToDisplay: File
+  
+const props = defineProps({
+    fileToDisplay: Object
   })
 
   const emit = defineEmits(['file-deleted'])
@@ -17,39 +18,41 @@ import { ref, onMounted, onUnmounted } from "vue";
 
   const reader = new FileReader();
   reader.onload = function(e) {
-    const type = props.fileToDisplay.type;
-    console.log(props.fileToDisplay);
+    const type = props.fileToDisplay.file.type;
     switch (type) {
       case 'image/bmp':
-        imageFileURL.value = generateURL(props.fileToDisplay);
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
         filetype.value = type;
         break;
       case 'image/gif':
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
+        filetype.value = type;
         break;
       case 'image/jpeg':
-    imageFileURL.value = generateURL(props.fileToDisplay);
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
         filetype.value = type;
         break;
       case 'image/png': 
-        imageFileURL.value = generateURL(props.fileToDisplay);
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
         filetype.value = type;
         break;
       case 'image/svg+xml':
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
+        filetype.value = type;
         break;
       case 'image/tiff':
-        imageFileURL.value = generateURL(props.fileToDisplay);
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
         filetype.value = type;
         break;
       case 'image/webp':
-        imageFileURL.value = generateURL(props.fileToDisplay);
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
         filetype.value = type;
         break;  
       case 'text/css':
+        filecontent.value = e.target.result;
+        filetype.value = type;
         break;
       case 'text/xml':
-        //parser.value = new DOMParser()
-        //var tempFileContent = e.target.result;
-        //filecontent.value = parser.value.parseFromString(tempFileContent, "text/xml");
         filecontent.value = e.target.result;
         filetype.value = type;
         break;
@@ -64,7 +67,6 @@ import { ref, onMounted, onUnmounted } from "vue";
       case 'text/html':
         parser.value = new DOMParser()
         var tempFileContent = e.target.result;
-        //filecontent.value = parser.value.parseFromString(tempFileContent, "text/html").textContent;
         filecontent.value = tempFileContent;
         filetype.value = type;
         break;
@@ -76,6 +78,10 @@ import { ref, onMounted, onUnmounted } from "vue";
         filecontent.value = e.target.result;
         filetype.value = type;
         break;
+      case 'application/pdf':
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
+        filetype.value = type;
+        break;
       case 'application/ld+json':
         filecontent.value = e.target.result;
         filetype.value = type;
@@ -83,23 +89,21 @@ import { ref, onMounted, onUnmounted } from "vue";
       case 'application/xml':
         parser.value = new DOMParser()
         var tempFileContent = e.target.result;
-        filecontent.value = parser.value.parseFromString(tempFileContent, "text/xml");
+        filecontent.value = tempFileContent;
         filetype.value = type;
         break;
       case 'video/x-matroska':
-        imageFileURL.value = generateURL(props.fileToDisplay);
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
         filetype.value = type;
-        console.log(imageFileURL.value);
         break;
       case 'video/mp4':
-        imageFileURL.value = generateURL(props.fileToDisplay);
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
         filetype.value = type;
-        console.log(imageFileURL.value);
         break;
     }
  
   }
-  props.fileToDisplay.type.split("/")[0] === 'image' ? reader.readAsDataURL(props.fileToDisplay) : reader.readAsText(props.fileToDisplay);
+  props.fileToDisplay.file.type.split("/")[0] === 'image' ? reader.readAsDataURL(props.fileToDisplay.file) : reader.readAsText(props.fileToDisplay.file);
 
   function generateURL(file){
     let fileSrc = URL.createObjectURL(file);
@@ -110,7 +114,7 @@ import { ref, onMounted, onUnmounted } from "vue";
   }
 
   function deleteItem(e){
-    emit('file-deleted', props.fileToDisplay);
+    emit('file-deleted', e);
   }
 
   // prevent default prowser behaviour
@@ -137,18 +141,24 @@ onUnmounted(() => {
 <template>
   
   <div class="fileview">
-    <h2>{{fileToDisplay.name}} <button class="x-button" @click="deleteItem">X</button> </h2>                                                     
+    <h2>{{fileToDisplay.file.name}} <button class="x-button" @click="deleteItem(fileToDisplay.id)">X</button> </h2>                                                     
     <div  id="file_content_zone" class="container">
       <div v-if="filetype === 'application/vnd.ms-excel' || filetype === 'text/csv'" class="text-in-container">
-        <p  v-for="(l,i) in filecontent" :key="i">{{ i }} : {{ l }} </p>
+        <p  v-for="(l, i) in filecontent" :key="fileToDisplay.id">{{ i }} : {{ l }} </p>
       </div>
-      <div v-else-if="filetype === 'image/png' || filetype === 'image/jpeg'" class="image-container">
-        <img :src="generateURL(fileToDisplay)"/>
+      <div v-else-if="filetype === 'image/png' || filetype === 'image/jpeg'  || filetype === 'image/webp' || filetype === 'image/gif'" class="image-container">
+        <img :src="generateURL(fileToDisplay.file)"/>
+      </div>
+      <div v-else-if="filetype === 'image/svg+xml'" class="image-container">
+        <img :src="generateURL(fileToDisplay.file)" width="250" height="250"/>
+      </div>
+      <div v-else-if="filetype === 'application/pdf'" class="image-container">
+        <embed :src="generateURL(fileToDisplay.file)" width="100%" height="1000"/>
       </div>
       <div v-else-if="filetype === 'video/x-matroska' || filetype === 'video/mp4'" class="image-container">
         <video width="320" height="240" controls class="image-container">
-        <source :src="generateURL(fileToDisplay)" type="video/mp4" controls>
-        <source :src="generateURL(fileToDisplay)" type="video/webm" controls>
+        <source :src="generateURL(fileToDisplay.file)" type="video/mp4" controls>
+        <source :src="generateURL(fileToDisplay.file)" type="video/webm" controls>
         Your browser does not support the video tag.
       </video> 
       </div>

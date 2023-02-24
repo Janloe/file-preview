@@ -1,12 +1,10 @@
 <script setup>
-import { ref, toRefs } from 'vue';
+import { ref } from 'vue';
 import { onMounted, onUnmounted } from 'vue';
-
-const allowedFiletypes = ref(['text/plain', 'text/css', 'text/csv', 'application/json', 'image/svg+xml'])
 
 const dragging = ref(false);
 
-function dragEnterHandler(e){
+function dragEnterHandler(){
   //console.log("Dragging over!");
   dragging.value = true;
  }
@@ -49,7 +47,7 @@ onUnmounted(() => {
 
 //--------------------
 
-function dragLeaveHandler(e){
+function dragLeaveHandler(){
   //console.log("leaving");
   dragging.value = false;
 }
