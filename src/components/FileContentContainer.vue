@@ -100,6 +100,26 @@ const props = defineProps({
         imageFileURL.value = generateURL(props.fileToDisplay.file);
         filetype.value = type;
         break;
+      case 'audio/mpeg':
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
+        filetype.value = type;
+        break;
+      case 'audio/ogg':
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
+        filetype.value = type;
+        break;
+      case 'audio/wav':
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
+        filetype.value = type;
+        break;
+      case 'audio/webm':
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
+        filetype.value = type;
+        break;
+      case 'audio/mp3':
+        imageFileURL.value = generateURL(props.fileToDisplay.file);
+        filetype.value = type;
+        break;
     }
  
   }
@@ -161,6 +181,15 @@ onUnmounted(() => {
         <source :src="generateURL(fileToDisplay.file)" type="video/webm" controls>
         Your browser does not support the video tag.
       </video> 
+      </div>
+      <div v-else-if="filetype === 'audio/mpeg' || filetype === 'audio/ogg' || filetype === 'audio/wav' || filetype === 'audio/webm' || filetype === 'audio/mpr'" class="image-container">
+        <audio controls>
+          <source :src="generateURL(fileToDisplay.file)" type="audio/mpeg" controls>
+          <source :src="generateURL(fileToDisplay.file)" type="audio/ogg" controls>
+          <source :src="generateURL(fileToDisplay.file)" type="audio/wav" controls>
+          <source :src="generateURL(fileToDisplay.file)" type="audio/webm" controls>
+          Your browser does not support the audio element.
+      </audio>
       </div>
       <div v-else class="text-in-container">
 <pre :class="{ code : filetype === 'application/json' }">
