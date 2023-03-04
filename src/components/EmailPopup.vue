@@ -8,12 +8,18 @@ const props = defineProps({
 
 const email = ref({'email': "", 'content': ""})
 
+/*Need intermittent value currentEmail, because emptying email-ref clears email before emitting*/
 function sendNewEmail(newEmail){
-  emits('send-email', newEmail);
+  let currentEmail = {'email': newEmail.email, 'content': newEmail.content}
+  emits('send-email', currentEmail);
+  email.value.email = '';
+  email.value.content = '';
 }
 
 function closeModal(){
   emits('close');
+  email.value.email = '';
+  email.value.content = '';
 }
 
 </script>
