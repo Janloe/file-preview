@@ -11,7 +11,8 @@ const showModal = ref(false)
 
 function sendEmail(email){
   if(email.email !== '' && email.content != ''){
-    console.log("Email sent", email)
+    console.log("Email sent", email);
+    showModal.value = false;
   }else{
     console.log("Need to write email and content");
   }
@@ -64,10 +65,7 @@ function sendEmail(email){
     </template>
     <template #heading>Questions or feedback?</template>
       Click <a id="show-modal" @click="showModal = true">here</a> and send an email.
-      <Teleport to="body">
-      <EmailPopup :show="showModal" @close="showModal = false" @send-email="sendEmail"/>
-    </Teleport>
-      
+      <EmailPopup :show="showModal" @close="showModal = false" @send-email="sendEmail"/>  
   </ExplanationItem>
   </div>
 </template>

@@ -121,7 +121,6 @@ const props = defineProps({
         filetype.value = type;
         break;
     }
- 
   }
   props.fileToDisplay.file.type.split("/")[0] === 'image' ? reader.readAsDataURL(props.fileToDisplay.file) : reader.readAsText(props.fileToDisplay.file);
 
@@ -164,7 +163,7 @@ onUnmounted(() => {
     <h2>{{fileToDisplay.file.name}} <button class="x-button" @click="deleteItem(fileToDisplay.id)">X</button> </h2>                                                     
     <div  id="file_content_zone" class="container">
       <div v-if="filetype === 'application/vnd.ms-excel' || filetype === 'text/csv'" class="text-in-container">
-        <p  v-for="(l, i) in filecontent" :key="fileToDisplay.id">{{ i }} : {{ l }} </p>
+        <p  v-for="(l, i) in filecontent" v-bind:key="i">{{ i }} : {{ l }} </p>
       </div>
       <div v-else-if="filetype === 'image/png' || filetype === 'image/jpeg'  || filetype === 'image/webp' || filetype === 'image/gif'" class="image-container">
         <img :src="generateURL(fileToDisplay.file)"/>

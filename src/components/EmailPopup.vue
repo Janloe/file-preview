@@ -22,7 +22,7 @@ function closeModal(){
   <Transition name="email-popup">
     <div v-if="show" class="modal-mask">
       <div class="modal-container">
-        <h1>Questions</h1>
+        <h1>Questions/feedback</h1>
         <textarea  id="feedback" name="feedback" class="textarea" v-model="email.content"></textarea>
         
             <p><label for="email">Enter email here:</label></p>
