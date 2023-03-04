@@ -120,6 +120,9 @@ const props = defineProps({
         imageFileURL.value = generateURL(props.fileToDisplay.file);
         filetype.value = type;
         break;
+      default:
+        filecontent.value = "Error: this filetype is not supported"
+        filetype.value = ""
     }
   }
   props.fileToDisplay.file.type.split("/")[0] === 'image' ? reader.readAsDataURL(props.fileToDisplay.file) : reader.readAsText(props.fileToDisplay.file);
@@ -190,8 +193,11 @@ onUnmounted(() => {
           Your browser does not support the audio element.
       </audio>
       </div>
+      <div v-else-if="filetype === ''">
+      <pre class="no-supported-filetype">{{ filecontent }}</pre>
+      </div>
       <div v-else class="text-in-container">
-<pre :class="{ code : filetype === 'application/json' }">
+<pre >
 {{ filecontent }}
 </pre>
       </div>
@@ -230,9 +236,10 @@ onUnmounted(() => {
       
     }
 
-    .code{
+    .no-supported-filetype{
       /* color: rgb(245, 86, 86); */
-      color: var(--color-text);
+      color: red;
+      text-align: center;
     }
 
     .x-button {
