@@ -194,7 +194,7 @@ onUnmounted(() => {
       </audio>
       </div>
       <div v-else-if="filetype === ''">
-      <pre class="no-supported-filetype">{{ filecontent }}</pre>
+        <pre class="no-supported-filetype">{{ filecontent }}</pre>
       </div>
       <div v-else class="text-in-container">
 <pre >
@@ -216,30 +216,28 @@ onUnmounted(() => {
         font-size: 1.5em;
         display: flex;
         flex: 0 0 0 100%;
-        overflow: break-word;
       }
 
     .text-in-container {
       font-size: 0.8em;
-      overflow-wrap: break-word;
-      overflow: scroll;
     }
 
     .fileview{
       flex-direction: column;
       align-content: center;
       grid-column: span 2;
-      
     }
-    pre > p {
+
+    pre {
       padding: 0.5em;
-      
+      white-space: pre-wrap;
     }
 
     .no-supported-filetype{
       /* color: rgb(245, 86, 86); */
       color: red;
       text-align: center;
+      font-size: 0.8em;  
     }
 
     .x-button {
