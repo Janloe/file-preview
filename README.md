@@ -2,33 +2,38 @@
 
 Drop files in the browser window, and preview them.
 
-![Landingpage]()
+![Landingpage](./public/example_images/landingpage.png)
 
 The prieview appears below.
 
-![File dropped]()
+![File dropped](./public/example_images/one_file.png)
 
 Drop several files and they all appear.
 
-![Several files dropped]()
+![Several files dropped](./public/example_images/multiple_files.png)
+
+The images can be removed (artifacts on gif after conversion...):
+<div style="text-align:center"><img src="./public/example_images/sc_file_previewer.gif" /></div>
 
 ## About page
 
 An about page with "How to" and supported files.
 
-![About()]
-
-## Encoding Tester (Work in progress!)
-
-A page to drop text files and check what encoding they have.
-
-![Encoding tester]()
+![About](./public/example_images/about.png)
 
 ## Feedback popup
 
 A feedback email-popup. To be replaced with mailto-link that opens default email client.
 
-![Email]()
+![Email](./public/example_images/email_feedback.png)
+
+## Encoding Tester (Work in progress!)
+
+A page to drop text files and check what encoding they have.
+
+![Encoding tester](./public/example_images/encoding_tester.png)
+
+
 
 ## Project Setup
 
