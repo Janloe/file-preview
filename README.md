@@ -1,13 +1,34 @@
-# file-preview
-This template should help get you started developing with Vue 3 in Vite.
+# 📂 file-preview
 
-## Recommended IDE Setup
+Drop files in the browser window, and preview them.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+![Landingpage]()
 
-## Customize configuration
+The prieview appears below.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+![File dropped]()
+
+Drop several files and they all appear.
+
+![Several files dropped]()
+
+## About page
+
+An about page with "How to" and supported files.
+
+![About()]
+
+## Encoding Tester (Work in progress!)
+
+A page to drop text files and check what encoding they have.
+
+![Encoding tester]()
+
+## Feedback popup
+
+A feedback email-popup. To be replaced with mailto-link that opens default email client.
+
+![Email]()
 
 ## Project Setup
 
@@ -32,3 +53,8 @@ npm run build
 ```sh
 npm run lint
 ```
+---
+
+## Why?
+
+Developed for fun, and to have a project to show for.
