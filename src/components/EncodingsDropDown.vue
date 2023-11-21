@@ -4,20 +4,22 @@ import { ref } from "vue";
 
 const emit = defineEmits(['encoding-chosen'])
 
-const encodings =  ref(json);
+const ncChoice =  ref(["dimensions", "attributes", "variables", "complete"]);
 
-function setEncodingInfo(e){
-
-    emit('encoding-chosen', e)
+function setEncodingInfo(choice){
+    //console.log("c", codec);
+    //console.log("e", encoding);
+    emit('encoding-chosen', choice)
 }
 
 </script>
 
 <template>
     <form action=''>
-        <label for='encodings'>Encoding: </label>
-            <select name='encodings' id='encodings'>
-                <option @click="setEncodingInfo(encodings[encoding])" v-for='encoding in Object.keys(encodings)'>{{ encoding }}</option>
+        <label for='displayChoice'>NetCDF-data: </label>
+            <select name='dicplayChoice' id='displayChoice'>
+                <option value="" selected disabled hidden>Choose what to display</option>
+                <option @click="setEncodingInfo(choice)" v-for='choice in ncChoice'>{{ choice }}</option>
             </select>
     </form>
 </template>

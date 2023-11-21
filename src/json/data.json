@@ -1,4 +1,4 @@
-{
+[{
     "ascii": {"aliases": ["646","us-ascii"], "languages": ["English"], "encodingType": "standard"},
     "big5": {"aliases": ["big5-tw","csbig5"], "languages": ["Traditional Chinese"], "encodingType": "standard"},
     "big5hkscs": {"aliases": ["big5-hkscs","hkscs"], "languages": ["Traditional Chinese"], "encodingType": "standard"},
@@ -96,4 +96,4 @@
     "utf_7": {"aliases": ["U7","unicode-1-1-utf-7"], "languages": ["all languages"], "encodingType": "standard"},
     "utf_8": {"aliases": ["U8","UTF","utf8","cp65001"], "languages": ["all languages"], "encodingType": "standard"},
     "utf_8_sig": {"aliases": [], "languages": ["all languages"], "encodingType": "standard"}
-}
+}]

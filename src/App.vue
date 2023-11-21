@@ -20,7 +20,7 @@ import PageBanner from "./components/PageBanner.vue";
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/encodingsview">EncodingTester</RouterLink>
+        <RouterLink to="/encodingsview">NetCDF-tester</RouterLink>
         <!--<RouterLink to="/fileview">File View</RouterLink>-->
       </nav>
     </div>
